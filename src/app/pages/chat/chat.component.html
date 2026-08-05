@@ -1,0 +1,186 @@
+<div class="chat-container">
+
+  <h2>Skoola Ai</h2>
+
+  <div class="chat-box">
+
+    <div
+  *ngFor="let msg of messages"
+  class="message-row"
+  [ngClass]="msg.role"
+>
+
+  <!-- AI Avatar -->
+  <img
+    *ngIf="msg.role === 'ai'"
+    src="assets/images/owlhead.png"
+    class="avatar"
+    alt="AI"
+  />
+
+  <div class="message-content">
+
+    <strong>
+      {{ msg.role === 'user' ? 'You' : 'Skoola AI' }}
+    </strong>
+
+    <div class="bubble">
+    <div>
+      {{ msg.text }}
+    </div>
+
+    <button
+      *ngIf="msg.actionType === 'OPEN_TEACHER_LIST'"
+      type="button"
+      class="teacher-list-button"
+      (click)="openTeacherList()"
+    >
+      <span class="teacher-list-icon">T</span>
+
+      {{ msg.actionLabel || 'View teachers' }}
+    </button>
+  </div>
+
+    <div
+      *ngIf="msg.attachmentName"
+      class="uploaded-document"
+    >
+      <span>
+        {{
+          msg.attachmentType &&
+          msg.attachmentType.startsWith('image/')
+            ? '🖼️'
+            : '📄'
+        }}
+      </span>
+
+      <span>{{ msg.attachmentName }}</span>
+    </div>
+
+  </div>
+
+</div>
+
+    <div
+      *ngIf="checkingAccount"
+      class="ai"
+    >
+      <strong>AI:</strong>
+      Checking your account...
+    </div>
+
+    <div
+      *ngIf="loading"
+      class="ai"
+    >
+      <strong>AI:</strong>
+
+      {{
+        uploadingFile
+          ? 'Processing the document...'
+          : 'Typing...'
+      }}
+    </div>
+
+  </div>
+
+  <!-- Hidden file picker -->
+  <input
+    #fileInput
+    type="file"
+    accept=".pdf,.jpg,.jpeg,.png"
+    hidden
+    (change)="onFileSelected($event)"
+  />
+
+  <div class="chat-footer">
+
+    <!-- Only teachers see this button -->
+    <button
+      *ngIf="userMode === 'teacher'"
+      type="button"
+      class="attachment-button"
+      title="Attach PDF or image"
+      (click)="openFilePicker(fileInput)"
+      [disabled]="
+        loading ||
+        uploadingFile ||
+        checkingAccount
+      "
+    >
+      📎
+    </button>
+
+    <div class="message-input-wrapper">
+
+      <div
+        *ngIf="
+          userMode === 'teacher' &&
+          selectedFileName
+        "
+        class="selected-file"
+      >
+        <span>
+          {{
+            selectedFile &&
+            selectedFile.type.startsWith('image/')
+              ? '🖼️'
+              : '📄'
+          }}
+
+          {{ selectedFileName }}
+        </span>
+
+        <button
+          type="button"
+          class="remove-file-button"
+          (click)="removeSelectedFile(fileInput)"
+          [disabled]="uploadingFile"
+        >
+          ×
+        </button>
+      </div>
+
+      <input
+        [(ngModel)]="userMessage"
+        [placeholder]="
+          userMode === 'teacher'
+            ? 'Type a message or attach a school document...'
+            : 'Type your message...'
+        "
+        (keyup.enter)="sendMessage()"
+        [disabled]="
+          loading ||
+          uploadingFile ||
+          checkingAccount
+        "
+      />
+
+    </div>
+
+    <button
+      type="button"
+      class="send-button"
+      (click)="sendMessage()"
+      [disabled]="
+        loading ||
+        uploadingFile ||
+        checkingAccount ||
+        (
+          !userMessage.trim() &&
+          !selectedFile
+        )
+      "
+    >
+      {{
+        uploadingFile
+          ? 'Processing...'
+          : loading
+            ? 'Sending...'
+            : 'Send'
+      }}
+    </button>
+
+  </div>
+
+</div>

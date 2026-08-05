@@ -1,0 +1,49 @@
+<div class="chat-container">
+
+  <div class="chat-header">
+    <div class="teacher-avatar">
+      <i class="fas fa-user-tie"></i>
+    </div>
+
+    <div class="teacher-info">
+      <h3>Parent</h3>
+      <small>Online</small>
+    </div>
+  </div>
+
+  <div class="chat-body">
+
+    <div
+      *ngFor="let msg of messages"
+      class="message"
+      [ngClass]="{
+        'sent': msg.sender_role === 'teacher',
+        'received': msg.sender_role === 'parent'
+      }"
+    >
+      <div class="bubble">
+        {{ msg.message }}
+      </div>
+
+      <small>
+        {{ msg.created_at | date:'shortTime' }}
+      </small>
+    </div>
+
+  </div>
+
+  <div class="chat-footer">
+
+    <input
+      [(ngModel)]="userMessage"
+      placeholder="Type a message..."
+      (keyup.enter)="sendMessage()"
+    >
+
+    <button (click)="sendMessage()">
+      Send
+    </button>
+
+  </div>
+
+</div>

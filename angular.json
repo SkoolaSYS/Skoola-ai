@@ -24,6 +24,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -62,7 +63,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "my-chat:build"
+            "browserTarget": "my-chat:build",
+            "port": 4300
           },
           "configurations": {
             "production": {
@@ -119,6 +121,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "my-chat"
+    }
+  },
+  "defaultProject": "my-chat",
+  "cli": {
+    "analytics": false
+  }
 }

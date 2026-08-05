@@ -1,0 +1,271 @@
+<div class="teacher-page">
+
+  <!-- WhatsApp-style header -->
+  <header class="teacher-header">
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="goBack()"
+      aria-label="Go back"
+    >
+      <span>‹</span>
+    </button>
+
+    <div class="header-avatar">
+      T
+    </div>
+
+    <div class="header-information">
+      <h1>Teachers</h1>
+
+      <p>
+        Select a teacher to start chatting
+      </p>
+    </div>
+
+  </header>
+
+  <!-- Search section -->
+  <div class="search-section">
+
+    <div class="search-wrapper">
+
+      <span class="search-icon">
+        🔍
+      </span>
+
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        (input)="filterTeachers()"
+        placeholder="Search teacher or subject"
+        autocomplete="off"
+      />
+
+      <button
+        *ngIf="searchText"
+        type="button"
+        class="clear-search-button"
+        (click)="searchText = ''; filterTeachers()"
+        aria-label="Clear search"
+      >
+        ×
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Loading -->
+  <div
+    *ngIf="loading"
+    class="state-container"
+  >
+    <div class="loading-spinner"></div>
+
+    <h3>Loading teachers</h3>
+
+    <p>
+      Finding teachers connected to your child...
+    </p>
+  </div>
+
+  <!-- Error -->
+  <div
+    *ngIf="!loading && errorMessage"
+    class="state-container"
+  >
+    <div class="state-icon error-icon">
+      !
+    </div>
+
+    <h3>Unable to load teachers</h3>
+
+    <p>
+      {{ errorMessage }}
+    </p>
+
+    <button
+      type="button"
+      class="retry-button"
+      (click)="retry()"
+    >
+      Try again
+    </button>
+  </div>
+
+  <!-- No teachers -->
+  <div
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      teachers.length === 0
+    "
+    class="state-container"
+  >
+    <div class="state-icon">
+      👨‍🏫
+    </div>
+
+    <h3>No teachers found</h3>
+
+    <p>
+      No teachers are currently connected
+      to your child's class.
+    </p>
+  </div>
+
+  <!-- No search results -->
+  <div
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      teachers.length > 0 &&
+      filteredTeachers.length === 0
+    "
+    class="state-container"
+  >
+    <div class="state-icon">
+      🔍
+    </div>
+
+    <h3>No matching teacher</h3>
+
+    <p>
+      Try searching using another teacher
+      name or subject.
+    </p>
+  </div>
+
+  <!-- Teacher list -->
+  <main
+    *ngIf="
+      !loading &&
+      !errorMessage &&
+      filteredTeachers.length > 0
+    "
+    class="teacher-list"
+  >
+
+    <button
+      *ngFor="
+        let teacher of filteredTeachers;
+        trackBy: trackByTeacher
+      "
+      type="button"
+      class="teacher-item"
+      (click)="openTeacherChat(teacher)"
+    >
+
+      <!-- Avatar -->
+      <div class="teacher-avatar">
+
+        <img
+          *ngIf="teacher.profile_image"
+          [src]="teacher.profile_image"
+          [alt]="teacher.teacher_name"
+        />
+
+        <span
+          *ngIf="!teacher.profile_image"
+        >
+          {{
+            getTeacherInitial(
+              teacher.teacher_name
+            )
+          }}
+        </span>
+
+        <span class="online-dot"></span>
+
+      </div>
+
+      <!-- Teacher information -->
+      <div class="teacher-information">
+
+        <div class="teacher-name-row">
+
+          <h2>
+            {{ teacher.teacher_name }}
+          </h2>
+
+          <span
+            *ngIf="teacher.last_message_time"
+            class="message-time"
+          >
+            {{
+              teacher.last_message_time
+                | date:'shortTime'
+            }}
+          </span>
+
+        </div>
+
+        <div class="teacher-role-row">
+
+          <span
+            *ngIf="
+              teacher.teacher_type ===
+              'homeroom'
+            "
+            class="teacher-badge homeroom-badge"
+          >
+            Homeroom
+          </span>
+
+          <span
+            *ngIf="
+              teacher.teacher_type !==
+              'homeroom'
+            "
+            class="teacher-badge subject-badge"
+          >
+            Subject
+          </span>
+
+          <span class="teacher-role">
+            {{ getTeacherRole(teacher) }}
+          </span>
+
+        </div>
+
+        <div class="message-preview-row">
+
+          <p class="message-preview">
+            {{ getLastMessage(teacher) }}
+          </p>
+
+          <span
+            *ngIf="
+              getUnreadCount(teacher) > 0
+            "
+            class="unread-count"
+          >
+            {{ getUnreadCount(teacher) }}
+          </span>
+
+        </div>
+
+        <small class="student-information">
+          Regarding:
+          {{ teacher.student_name }}
+
+          <span
+            *ngIf="teacher.student_class_name"
+          >
+            • {{ teacher.student_class_name }}
+          </span>
+        </small>
+
+      </div>
+
+      <span class="open-chat-arrow">
+        ›
+      </span>
+
+    </button>
+
+  </main>
+
+</div>

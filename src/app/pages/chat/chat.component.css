@@ -1,0 +1,273 @@
+.chat-container {
+  max-width: 700px;
+  height: 90vh;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  margin: 0;
+  padding: 18px;
+  background: #4f46e5;
+  color: white;
+  text-align: center;
+}
+
+.chat-box {
+  flex: 1;
+  padding: 20px;
+  background: #f3f4f6;
+  overflow-y: auto;
+}
+
+.input-area {
+  display: flex;
+  padding: 15px;
+  background: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  outline: none;
+  font-size: 15px;
+}
+
+.input-area button {
+  margin-left: 10px;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 999px;
+  background: #4f46e5;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.input-area button:hover {
+  background: #4338ca;
+}
+
+.chat-footer {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  padding: 12px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+.attachment-button {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 21px;
+}
+
+.message-input-wrapper {
+  flex: 1;
+}
+
+.message-input-wrapper input {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 22px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.selected-file {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 7px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #eef2ff;
+}
+
+.selected-file span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-file-button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 21px;
+}
+
+.send-button {
+  min-height: 44px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 22px;
+  cursor: pointer;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.attachment-button:disabled,
+.send-button:disabled,
+.remove-file-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.uploaded-document {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.uploaded-document-icon {
+  font-size: 22px;
+}
+
+.bubble {
+  white-space: pre-line;
+}
+
+/* .message-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+} */
+
+/* .message-content {
+  display: flex;
+  flex-direction: column;
+} */
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 12px;
+}
+
+.user {
+  justify-content: flex-end;
+}
+
+.user .message-content {
+  align-items: flex-end;
+}
+
+.ai {
+  justify-content: flex-start;
+}
+
+.message-row {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+}
+
+.user {
+  justify-content: flex-end;
+}
+
+.ai {
+  justify-content: flex-start;
+}
+
+.user .message-content {
+  align-items: flex-end;
+}
+
+.ai .message-content {
+  align-items: flex-start;
+}
+
+.bubble {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 12px 15px;
+  border-radius: 15px;
+  line-height: 1.4;
+  white-space: pre-line;
+  overflow-wrap: break-word;
+}
+
+.user .bubble {
+  background: #4f46e5;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.ai .bubble {
+  background: white;
+  color: #111827;
+  border-bottom-left-radius: 4px;
+}
+
+.teacher-list-button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  width: 100%;
+  margin-top: 12px;
+  padding: 11px 14px;
+
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0 0 10px 10px;
+
+  background: transparent;
+  color: #128c7e;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.teacher-list-button:hover {
+  background: rgba(37, 211, 102, 0.1);
+}
+
+.teacher-list-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+  background: #25d366;
+
+  font-size: 16px;
+}
