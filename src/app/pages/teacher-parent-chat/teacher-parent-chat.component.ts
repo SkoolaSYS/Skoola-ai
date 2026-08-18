@@ -39,7 +39,7 @@ export class TeacherParentChatComponent
   messages: Message[] = [];
 
   private messageInterval: any;
-  private apiUrl = 'http://localhost:5000';
+  private apiUrl = 'http://72.61.151.99:5000';
 
   constructor(
     private http: HttpClient,
