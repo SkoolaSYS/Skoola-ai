@@ -37,7 +37,7 @@ interface ChatResponse {
 export class ChatComponent implements OnInit {
    @ViewChild('fileInput', { static: false })
   fileInput!: ElementRef<HTMLInputElement>;
-  readonly apiUrl = 'http://72.61.151.99:5000';
+  readonly apiUrl = 'http://72.61.151.99:5001';
 
   userMessage = '';
   loading = false;

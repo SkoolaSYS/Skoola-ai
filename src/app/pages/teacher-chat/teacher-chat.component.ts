@@ -31,7 +31,7 @@ export class TeacherChatComponent implements OnInit, OnDestroy {
   teacherName = 'Teacher';
 
   private messageInterval: any;
-  private apiUrl = 'http://72.61.151.99:5000';
+  private apiUrl = 'http://72.61.151.99:5001';
 
   constructor(
     private http: HttpClient,

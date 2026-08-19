@@ -35,7 +35,7 @@ interface ParentTeacher {
   styleUrls: ['./parent-teacher-list.component.css']
 })
 export class ParentTeacherListComponent implements OnInit {
-  readonly apiUrl = 'http://72.61.151.99:5000';
+  readonly apiUrl = 'http://72.61.151.99:5001';
 
   parentEmail = '';
 
