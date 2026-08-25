@@ -202,74 +202,100 @@ export class ChatComponent implements OnInit {
    * If it returns 404, the email is treated as a parent account.
    */
   detectUserMode(): void {
-    this.checkingAccount = true;
-    this.userMode = null;
-    this.teacherUserId = null;
-    this.teacherName = '';
+  this.checkingAccount = true;
+  this.userMode = null;
+  this.teacherUserId = null;
+  this.teacherName = '';
 
-    this.http.get<TeacherAccount>(
-      `${this.apiUrl}/teacher-by-email`,
-      {
-        params: {
-          email: this.loginEmail
-        }
+  this.http.get<TeacherAccount>(
+    `${this.apiUrl}/teacher-by-email`,
+    {
+      params: {
+        email: this.loginEmail
       }
-    ).subscribe({
-      next: teacher => {
-        this.checkingAccount = false;
-        this.userMode = 'teacher';
-        this.teacherUserId = teacher.id;
-        this.teacherName = teacher.name;
+    }
+  ).subscribe({
+    next: teacher => {
+      this.checkingAccount = false;
+      this.userMode = 'teacher';
+      this.teacherUserId = teacher.id;
+      this.teacherName = teacher.name;
 
-        console.log('Teacher mode activated:', teacher);
+      console.log('Teacher mode activated:', teacher);
+
+      this.messages = [
+        {
+          role: 'ai',
+          text:
+            `Hello ${teacher.name}! ` +
+            'How can I help you with your classes today?'
+        }
+      ];
+    },
+
+    error: (error: HttpErrorResponse) => {
+      this.checkingAccount = false;
+
+      // Teacher not found = treat as parent
+      if (error.status === 404) {
+        this.userMode = 'parent';
+
+        console.log(
+          'Parent mode activated:',
+          this.loginEmail
+        );
 
         this.messages = [
           {
             role: 'ai',
             text:
-              `Hello ${teacher.name}! ` +
-              'How can I help you with your classes today?'
-          }
-        ];
-      },
-
-      error: (error: HttpErrorResponse) => {
-        this.checkingAccount = false;
-
-        if (error.status === 404) {
-          this.userMode = 'parent';
-
-          console.log('Parent mode activated:', this.loginEmail);
-
-          this.messages = [
-            {
-              role: 'ai',
-              text: 'Hello! How can I help you regarding your child today?'
-            },
-            {
-              role: 'ai',
-              text: 'You can also chat directly with one of your child\'s teachers.',
-              actionType: 'OPEN_TEACHER_LIST',
-              actionLabel: 'Choose a teacher'
-            }
-          ];
-
-          return;
-        }
-
-        console.error('Account detection error:', error);
-
-        this.messages = [
+              'Hello! How can I help you regarding your child today?'
+          },
           {
             role: 'ai',
             text:
-              error.error?.message ||
-              'Unable to identify this account.'
+              'You can also chat directly with one of your child\'s teachers.',
+            actionType: 'OPEN_TEACHER_LIST',
+            actionLabel: 'Choose a teacher'
           }
         ];
+
+        return;
       }
-    });
-  }
+
+      // Actual backend/database error
+      console.error(
+        'Account detection error:',
+        error
+      );
+
+      console.error(
+        'BACKEND ERROR:',
+        error.error
+      );
+
+      console.error(
+        'BACKEND MESSAGE:',
+        error.error?.message
+      );
+
+      console.error(
+        'MYSQL ERROR:',
+        error.error?.error
+      );
+
+      this.messages = [
+        {
+          role: 'ai',
+          text:
+            error.error?.error ||
+            error.error?.message ||
+            'Unable to identify this account.'
+        }
+      ];
+    }
+  });
+}
 
   openFilePicker(fileInput: HTMLInputElement): void {
   if (this.userMode !== 'teacher') {

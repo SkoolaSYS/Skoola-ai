@@ -1,11 +1,11 @@
 const mysql = require("mysql2/promise");
 
 const aiDb = mysql.createPool({
-  host: process.env.AI_DB_HOST,
-  port: Number(process.env.AI_DB_PORT || 3306),
-  user: process.env.AI_DB_USER,
-  password: process.env.AI_DB_PASSWORD,
-  database: process.env.AI_DB_NAME,
+  host: "72.61.151.99",
+  port: 3306,
+  user: "root",
+  password: "root",
+  database: "school",
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
