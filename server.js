@@ -80,7 +80,7 @@ async function extractEventsFromText(extractedText, documentTitle) {
   const response = await axios.post(
     "https://api.groq.com/openai/v1/chat/completions",
     {
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-20b",
 
       messages: [
         {
@@ -1142,7 +1142,7 @@ try {
   const eventExtractionResponse = await axios.post(
     "https://api.groq.com/openai/v1/chat/completions",
     {
-      model: "llama-3.3-70b-versatile",
+      model: "openai/gpt-oss-20b",
       temperature: 0,
       messages: [
         {
@@ -1410,7 +1410,7 @@ Grade: ${row.grade}
     const response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "llama-3.3-70b-versatile",
+        model: "openai/gpt-oss-20b",
         temperature: 0.2,
         messages: [
           {
@@ -2026,7 +2026,7 @@ if (wantsTeacherChat) {
 const response = await axios.post(
   "https://api.groq.com/openai/v1/chat/completions",
   {
-    model: "llama-3.3-70b-versatile",
+    model: "openai/gpt-oss-20b",
     messages: [
   {
     role: "system",
