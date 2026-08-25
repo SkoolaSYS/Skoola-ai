@@ -271,3 +271,73 @@ h2 {
 
   font-size: 16px;
 }
+
+/* =========================
+   PARENT THEME - YELLOW
+   ========================= */
+
+.chat-container.parent-mode h2 {
+  background: #f4c430;
+  color: #1f2937;
+}
+
+.chat-container.parent-mode .send-button {
+  background: #f4c430;
+  color: #1f2937;
+}
+
+.chat-container.parent-mode .send-button:hover {
+  background: #d9aa18;
+}
+
+
+/* Parent's own chat bubble */
+.chat-container.parent-mode .message-row.user .bubble {
+  background: #f4c430;
+  color: #1f2937;
+}
+
+
+/* =========================
+   TEACHER THEME - NAVY BLUE
+   ========================= */
+
+.chat-container.teacher-mode h2 {
+  background: #0b1f3a;
+  color: white;
+}
+
+.chat-container.teacher-mode .send-button {
+  background: #0b1f3a;
+  color: white;
+}
+
+.chat-container.teacher-mode .send-button:hover {
+  background: #16345c;
+}
+
+
+/* Teacher's own chat bubble */
+.chat-container.teacher-mode .message-row.user .bubble {
+  background: #0b1f3a;
+  color: white;
+}
+
+/* Parent */
+.chat-container.parent-mode {
+  border: 2px solid #f4c430;
+}
+
+.chat-container.parent-mode .chat-footer {
+  border-top: 2px solid #f4c430;
+}
+
+
+/* Teacher */
+.chat-container.teacher-mode {
+  border: 2px solid #0b1f3a;
+}
+
+.chat-container.teacher-mode .chat-footer {
+  border-top: 2px solid #0b1f3a;
+}
